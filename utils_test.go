@@ -38,3 +38,21 @@ func TestVectorDistance(t *testing.T) {
 		t.Errorf("Expected %f, got %f", expectedAns, vectorDistance(vec1, vec2))
 	}
 }
+
+func TestGetRowVector(t *testing.T) {
+	A := mat.NewDense(3, 3, []float64{
+		6, 4, 2,
+		10, 3, 9,
+		4, 7, 1,
+	})
+	rowIndex := 1
+	expectedVector := mat.NewVector(3, []float64{
+		10,
+		3,
+		9,
+	})
+
+	if !mat.Equal(expectedVector, getRowVector(rowIndex, A)) {
+		t.Errorf("Expected true, got false")
+	}
+}

@@ -54,3 +54,10 @@ func vectorDistance(vec1, vec2 *mat.Vector) (v float64) {
 
 	return
 }
+
+func getRowVector(index int, M mat.Matrix) *mat.Vector {
+	_, cols := M.Dims()
+
+	rowData := mat.Row(nil, index, M)
+	return mat.NewVector(cols, rowData)
+}

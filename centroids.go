@@ -27,3 +27,22 @@ func InitializeCentroids(K int, X mat.Matrix) (Mu mat.Matrix) {
 
 	return
 }
+
+// NearestCentroid returns the index of the row in Mu for which its
+// vector magnitude with x is the least.
+// x should be (n*1) space and M (K*n) space
+func NearestCentroid(x *mat.Vector, Mu mat.Matrix) (rowIndex int) {
+	k, _ := Mu.Dims()
+	rowIndex = 0
+	leastDistance := vectorDistance(x, getRowVector(rowIndex, Mu))
+
+	for i := 1; i < k; i++ {
+		distance := vectorDistance(x, getRowVector(i, Mu))
+		if distance < leastDistance {
+			leastDistance = distance
+			rowIndex = i
+		}
+	}
+
+	return
+}
