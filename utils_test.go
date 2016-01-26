@@ -1,6 +1,7 @@
 package kmeans
 
 import (
+	mat "github.com/gonum/matrix/mat64"
 	"testing"
 )
 
@@ -24,5 +25,16 @@ func TestRandRange(t *testing.T) {
 	if randomV > max || randomV < min {
 		t.Errorf("Expected the random value %d to be within the range %d to %d",
 			randomV, min, max)
+	}
+}
+
+// Calculates the distance between to vectors
+func TestVectorDistance(t *testing.T) {
+	vec1 := mat.NewVector(3, []float64{4, 6, 2})
+	vec2 := mat.NewVector(3, []float64{1, 9, 3})
+	expectedAns := float64(19)
+
+	if expectedAns != vectorDistance(vec1, vec2) {
+		t.Errorf("Expected %f, got %f", expectedAns, vectorDistance(vec1, vec2))
 	}
 }

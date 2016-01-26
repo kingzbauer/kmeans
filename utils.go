@@ -1,6 +1,7 @@
 package kmeans
 
 import (
+	mat "github.com/gonum/matrix/mat64"
 	"math/rand"
 	"time"
 )
@@ -40,6 +41,16 @@ func in(i int, s []int) (present bool) {
 			return true
 		}
 	}
+
+	return
+}
+
+func vectorDistance(vec1, vec2 *mat.Vector) (v float64) {
+	result := mat.NewVector(vec1.Len(), nil)
+
+	result.SubVec(vec1, vec2)
+	result.MulElemVec(result, result)
+	v = mat.Sum(result)
 
 	return
 }
