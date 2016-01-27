@@ -151,7 +151,8 @@ func rowSum(M mat.Matrix) mat.Matrix {
 	return mat.NewDense(rows, 1, floatRes)
 }
 
-func constructXCentroidMatrix(idx *mat.Vector, Mu mat.Matrix) mat.Matrix {
+// Reconstructs the Data X using the new Centroid points
+func ConstructXCentroidMatrix(idx *mat.Vector, Mu mat.Matrix) mat.Matrix {
 
 	return rowIndexIn(idx, Mu)
 }

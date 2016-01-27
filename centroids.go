@@ -80,7 +80,7 @@ func MoveCentroids(idx *mat.Vector, X, Mu mat.Matrix) mat.Matrix {
 }
 
 func J(idx *mat.Vector, X, Mu mat.Matrix) float64 {
-	Mux := constructXCentroidMatrix(idx, Mu)
+	Mux := ConstructXCentroidMatrix(idx, Mu)
 	xRows, xCols := X.Dims()
 
 	Diff := mat.NewDense(xRows, xCols, nil)

@@ -198,7 +198,7 @@ func TestConstructXCentroidMatrix(t *testing.T) {
 		3, 1, 4,
 	})
 
-	ResultMu := constructXCentroidMatrix(idx, Mu)
+	ResultMu := ConstructXCentroidMatrix(idx, Mu)
 	if !mat.Equal(ResultMu, ExpectedMu) {
 		t.Errorf("Expected \n%v, got\n%v", printMatrix(ExpectedMu), printMatrix(ResultMu))
 	}
