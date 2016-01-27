@@ -1,6 +1,7 @@
 package kmeans
 
 import (
+	"fmt"
 	mat "github.com/gonum/matrix/mat64"
 	"math/rand"
 	"time"
@@ -60,4 +61,8 @@ func getRowVector(index int, M mat.Matrix) *mat.Vector {
 
 	rowData := mat.Row(nil, index, M)
 	return mat.NewVector(cols, rowData)
+}
+
+func printMatrix(M mat.Matrix) fmt.Formatter {
+	return mat.Formatted(M, mat.Prefix(""))
 }

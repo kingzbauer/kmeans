@@ -46,3 +46,19 @@ func NearestCentroid(x *mat.Vector, Mu mat.Matrix) (rowIndex int) {
 
 	return
 }
+
+// AssignCentroid assigns all of the examples in X to one of the groups
+// in Mu
+// X -> (m*n), Mu -> (K*n)
+// returns (m*1)
+func AssignCentroid(X, Mu mat.Matrix) *mat.Vector {
+	m, _ := X.Dims()
+	results := mat.NewVector(m, nil)
+
+	for i := 0; i < m; i++ {
+		x := getRowVector(i, X)
+		results.SetVec(i, float64(NearestCentroid(x, Mu)))
+	}
+
+	return results
+}
