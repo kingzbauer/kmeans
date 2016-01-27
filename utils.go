@@ -58,15 +58,26 @@ func vectorDistance(vec1, vec2 *mat.Vector) (v float64) {
 
 func getRowVector(index int, M mat.Matrix) *mat.Vector {
 	_, cols := M.Dims()
+	var rowData []float64
 
-	rowData := mat.Row(nil, index, M)
+	if cols == 0 {
+		rowData = []float64{}
+	} else {
+		rowData = mat.Row(nil, index, M)
+	}
 	return mat.NewVector(cols, rowData)
 }
 
 func getColumnVector(index int, M mat.Matrix) *mat.Vector {
 	rows, _ := M.Dims()
+	var colData []float64
 
-	colData := mat.Col(nil, index, M)
+	if rows == 0 {
+		colData = []float64{}
+	} else {
+		colData = mat.Col(nil, index, M)
+	}
+
 	return mat.NewVector(rows, colData)
 }
 
