@@ -32,6 +32,28 @@ func NewApp(X mat.Matrix, randInitializations, InnerIters int) *KmeansApp {
 	}
 }
 
+// Mu returns the copy of the stored value if the underlying value supports the
+// mat64.Copier interface, else returns the stored value
+func (appIter *AppIter) Mu() mat.Matrix {
+	r, c := appIter.mu.Dims()
+
+	M := mat.NewDense(r, c, nil)
+	M.Copy(appIter.mu)
+
+	return M
+}
+
+func (appIter *AppIter) Idx() *mat.Vector {
+	vec := mat.NewVector(appIter.idx.Len(), nil)
+	vec.CopyVec(appIter.idx)
+
+	return vec
+}
+
+func (appIter *AppIter) Cost() float64 {
+	return appIter.currentCost
+}
+
 // A wrapper around `kmeans.J`
 func (appIter *AppIter) J() float64 {
 	return J(appIter.idx, appIter.App.X, appIter.mu)
