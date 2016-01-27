@@ -100,3 +100,25 @@ func TestRowIndexIn(t *testing.T) {
 			printMatrix(Result))
 	}
 }
+
+func TestGetColumnVector(t *testing.T) {
+	M := mat.NewDense(4, 3, []float64{
+		6, 4, 1,
+		2, 3, 4,
+		9, 1, 6,
+		6, 2, 2,
+	})
+	columnIndex := 1
+	vectorLen, _ := M.Dims()
+	expVec := mat.NewVector(vectorLen, []float64{
+		4,
+		3,
+		1,
+		2,
+	})
+
+	resultVec := getColumnVector(columnIndex, M)
+	if !mat.Equal(expVec, resultVec) {
+		t.Errorf("Expected \n%v, got\n %v", printMatrix(expVec), printMatrix(resultVec))
+	}
+}

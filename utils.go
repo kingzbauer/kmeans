@@ -63,6 +63,13 @@ func getRowVector(index int, M mat.Matrix) *mat.Vector {
 	return mat.NewVector(cols, rowData)
 }
 
+func getColumnVector(index int, M mat.Matrix) *mat.Vector {
+	rows, _ := M.Dims()
+
+	colData := mat.Col(nil, index, M)
+	return mat.NewVector(rows, colData)
+}
+
 func printMatrix(M mat.Matrix) fmt.Formatter {
 	return mat.Formatted(M, mat.Prefix(""))
 }
