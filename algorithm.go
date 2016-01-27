@@ -81,11 +81,11 @@ func (appIter *AppIter) singleRun() {
 }
 
 // The main starting point of the algorithm
-// ```for i = 1 to RandInitializations:
-//        randomly initialize k-means
-//        run k-means to get 'idx' and 'mu'
-//        compute the cost function (distortion) J(idx,mu)
-//    pick the clustering that gave us the lowest cost```
+//     for i = 1 to RandInitializations:
+//         randomly initialize k-means
+//         run k-means to get 'idx' and 'mu'
+//         compute the cost function (distortion) J(idx,mu)
+//     pick the clustering that gave us the lowest cost
 func (app *KmeansApp) Run() {
 	// make an initial run
 	iter := &AppIter{App: app}
