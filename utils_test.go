@@ -122,3 +122,39 @@ func TestGetColumnVector(t *testing.T) {
 		t.Errorf("Expected \n%v, got\n %v", printMatrix(expVec), printMatrix(resultVec))
 	}
 }
+
+func TestColumnSum(t *testing.T) {
+	M := mat.NewDense(4, 3, []float64{
+		6, 4, 1,
+		2, 3, 4,
+		9, 1, 6,
+		6, 2, 2,
+	})
+	_, cols := M.Dims()
+	ExpectedRes := mat.NewDense(1, cols, []float64{
+		23, 10, 13,
+	})
+
+	Result := columnSum(M)
+	if !mat.Equal(ExpectedRes, Result) {
+		t.Errorf("Expected \n%v, got\n%v", printMatrix(ExpectedRes), printMatrix(Result))
+	}
+}
+
+func TestColumnMean(t *testing.T) {
+	M := mat.NewDense(4, 3, []float64{
+		6, 4, 1,
+		2, 3, 4,
+		9, 1, 6,
+		6, 2, 2,
+	})
+	_, cols := M.Dims()
+	ExpectedRes := mat.NewDense(1, cols, []float64{
+		5.75, 2.5, 3.25,
+	})
+
+	Result := columnMean(M)
+	if !mat.Equal(ExpectedRes, Result) {
+		t.Errorf("Expected \n%v, got\n%v", printMatrix(ExpectedRes), printMatrix(Result))
+	}
+}

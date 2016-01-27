@@ -100,3 +100,40 @@ func rowIndexIn(indexes *mat.Vector, M mat.Matrix) mat.Matrix {
 
 	return Res
 }
+
+func columnSum(M mat.Matrix) mat.Matrix {
+	_, cols := M.Dims()
+
+	floatRes := make([]float64, cols)
+	for i := 0; i < cols; i++ {
+		floatRes[i] = mat.Sum(getColumnVector(i, M))
+	}
+
+	return mat.NewDense(1, cols, floatRes)
+}
+
+func columnMean(M mat.Matrix) mat.Matrix {
+	r, c := M.Dims()
+
+	SumMatrix := columnSum(M)
+
+	switch t := SumMatrix.(type) {
+	case *mat.Dense:
+		M := mat.NewDense(1, c, nil)
+		M.Scale(1/float64(r), SumMatrix)
+		return M
+	case mat.Mutable:
+		_ = t
+		V := SumMatrix.(mat.Mutable)
+		_, cols := V.Dims()
+
+		for i := 0; i < cols; i++ {
+			V.Set(0, i, SumMatrix.At(0, i)/float64(r))
+		}
+
+		return V
+	default:
+		panic("M is of an unknown type")
+	}
+
+}
