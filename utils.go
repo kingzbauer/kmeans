@@ -139,3 +139,14 @@ func columnMean(M mat.Matrix) mat.Matrix {
 	}
 
 }
+
+func rowSum(M mat.Matrix) mat.Matrix {
+	rows, _ := M.Dims()
+
+	floatRes := make([]float64, rows)
+	for i := 0; i < rows; i++ {
+		floatRes[i] = mat.Sum(getRowVector(i, M))
+	}
+
+	return mat.NewDense(rows, 1, floatRes)
+}

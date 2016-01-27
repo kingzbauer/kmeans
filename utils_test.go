@@ -158,3 +158,24 @@ func TestColumnMean(t *testing.T) {
 		t.Errorf("Expected \n%v, got\n%v", printMatrix(ExpectedRes), printMatrix(Result))
 	}
 }
+
+func TestRowSum(t *testing.T) {
+	M := mat.NewDense(4, 3, []float64{
+		6, 4, 1,
+		2, 3, 4,
+		9, 1, 6,
+		6, 2, 2,
+	})
+	r, _ := M.Dims()
+	ExpectedM := mat.NewDense(r, 1, []float64{
+		11,
+		9,
+		16,
+		10,
+	})
+
+	ResultM := rowSum(M)
+	if !mat.Equal(ExpectedM, ResultM) {
+		t.Errorf("Expected \n%v, got\n%v", printMatrix(ExpectedM), printMatrix(ResultM))
+	}
+}
