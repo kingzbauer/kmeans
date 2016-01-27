@@ -24,9 +24,10 @@ type KmeansApp struct {
 }
 
 // NewApp returns a pointer to a new KmeansApp
-func NewApp(X mat.Matrix, randInitializations, InnerIters int) *KmeansApp {
+func NewApp(X mat.Matrix, randInitializations, K, InnerIters int) *KmeansApp {
 	return &KmeansApp{
 		X:                   X,
+		K:                   K,
 		RandInitializations: randInitializations,
 		InnerIters:          InnerIters,
 	}
@@ -111,6 +112,11 @@ func (appIter *AppIter) singleRun() {
 //         compute the cost function (distortion) J(idx,mu)
 //     pick the clustering that gave us the lowest cost
 func (app *KmeansApp) Run() {
+	if app.K == 0 {
+		// K was not specified
+		return
+	}
+
 	// make an initial run
 	iter := &AppIter{App: app}
 	iter.run()
