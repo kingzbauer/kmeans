@@ -33,6 +33,11 @@ func NewApp(X mat.Matrix, randInitializations, K, InnerIters int) *KmeansApp {
 	}
 }
 
+// Recontructs the original X matrix with the new cluster centroid values
+func (appIter *AppIter) RecostructXMatrix() mat.Matrix {
+	return ConstructXCentroidMatrix(appIter.idx, appIter.mu)
+}
+
 // Mu returns the copy of the stored value if the underlying value supports the
 // mat64.Copier interface, else returns the stored value
 func (appIter *AppIter) Mu() mat.Matrix {
