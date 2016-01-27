@@ -74,6 +74,7 @@ func printMatrix(M mat.Matrix) fmt.Formatter {
 	return mat.Formatted(M, mat.Prefix(""))
 }
 
+// findIn returns the indexes of the values in vec that match scalar
 func findIn(scalar float64, vec *mat.Vector) *mat.Vector {
 	var result []float64
 
@@ -86,6 +87,7 @@ func findIn(scalar float64, vec *mat.Vector) *mat.Vector {
 	return mat.NewVector(len(result), result)
 }
 
+// rowIndexIn returns a matrix contains the rows in indexes vector
 func rowIndexIn(indexes *mat.Vector, M mat.Matrix) mat.Matrix {
 	m := indexes.Len()
 	_, n := M.Dims()

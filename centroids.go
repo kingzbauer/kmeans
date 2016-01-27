@@ -62,3 +62,19 @@ func AssignCentroid(X, Mu mat.Matrix) *mat.Vector {
 
 	return idx
 }
+
+// MoveCentroid computes the averages for all the points inside each of the cluster
+// centroid groups, then move the cluster centroid points to those averages.
+// It then returns the new Centroids
+func MoveCentroids(idx *mat.Vector, X, Mu mat.Matrix) mat.Matrix {
+	muRows, muCols := Mu.Dims()
+	NewMu := mat.NewDense(muRows, muCols, nil)
+
+	for k := 0; k < muRows; k++ {
+		CentroidKMean := columnMean(rowIndexIn(findIn(float64(k), idx), X))
+		NewMu.SetRow(k,
+			mat.Row(nil, 0, CentroidKMean))
+	}
+
+	return NewMu
+}

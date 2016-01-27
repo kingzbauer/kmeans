@@ -44,3 +44,28 @@ func TestAssignCentroid(t *testing.T) {
 		t.Errorf("Expected \n%v, found \n%v", printMatrix(expectedVec), printMatrix(Idx))
 	}
 }
+
+func TestMoveCentroids(t *testing.T) {
+	Mu := mat.NewDense(2, 3, []float64{
+		4, 9, 2,
+		3, 1, 4,
+	})
+	X := mat.NewDense(4, 3, []float64{
+		2, 6, 1,
+		3, 4, 9,
+		9, 8, 2,
+		6, 4, 0,
+	})
+	ExpectedMu := mat.NewDense(2, 3, []float64{
+		17 / float64(3), 6, 1,
+		3, 4, 9,
+	})
+
+	idx := AssignCentroid(X, Mu)
+	ResultMu := MoveCentroids(idx, X, Mu)
+
+	if !mat.EqualApprox(ExpectedMu, ResultMu, 1e-7) {
+		t.Errorf("Expected \n%v, got\n%v",
+			printMatrix(ExpectedMu), printMatrix(ResultMu))
+	}
+}
