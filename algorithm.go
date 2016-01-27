@@ -43,6 +43,7 @@ func (appIter *AppIter) Mu() mat.Matrix {
 	return M
 }
 
+// Idx returns the idx assignments of the centroids to the data
 func (appIter *AppIter) Idx() *mat.Vector {
 	vec := mat.NewVector(appIter.idx.Len(), nil)
 	vec.CopyVec(appIter.idx)
@@ -50,6 +51,7 @@ func (appIter *AppIter) Idx() *mat.Vector {
 	return vec
 }
 
+// The Cost of the single algorithm iteration
 func (appIter *AppIter) Cost() float64 {
 	return appIter.currentCost
 }
