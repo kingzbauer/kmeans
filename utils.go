@@ -78,3 +78,18 @@ func findIn(scalar float64, vec *mat.Vector) *mat.Vector {
 
 	return mat.NewVector(len(result), result)
 }
+
+func rowIndexIn(indexes *mat.Vector, M mat.Matrix) mat.Matrix {
+	m := indexes.Len()
+	_, n := M.Dims()
+	Res := mat.NewDense(m, n, nil)
+
+	for i := 0; i < m; i++ {
+		Res.SetRow(i, mat.Row(
+			nil,
+			int(indexes.At(i, 0)),
+			M))
+	}
+
+	return Res
+}

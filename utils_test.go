@@ -76,3 +76,27 @@ func TestFindIn(t *testing.T) {
 			printMatrix(expectedVec), printMatrix(result))
 	}
 }
+
+func TestRowIndexIn(t *testing.T) {
+	Matrix := mat.NewDense(4, 3, []float64{
+		6, 4, 1,
+		2, 3, 4,
+		9, 1, 6,
+		6, 2, 2,
+	})
+	vecIndex := mat.NewVector(2, []float64{
+		1,
+		3,
+	})
+	ExpectedMatrix := mat.NewDense(2, 3, []float64{
+		2, 3, 4,
+		6, 2, 2,
+	})
+
+	Result := rowIndexIn(vecIndex, Matrix)
+	if !mat.Equal(ExpectedMatrix, Result) {
+		t.Errorf("Expected \n%v, got \n%v",
+			printMatrix(ExpectedMatrix),
+			printMatrix(Result))
+	}
+}
