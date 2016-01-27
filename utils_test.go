@@ -56,3 +56,23 @@ func TestGetRowVector(t *testing.T) {
 		t.Errorf("Expected true, got false")
 	}
 }
+
+func TestFindIn(t *testing.T) {
+	v := mat.NewVector(4, []float64{
+		1,
+		0,
+		1,
+		0,
+	})
+	x := 1
+	expectedVec := mat.NewVector(2, []float64{
+		0,
+		2,
+	})
+
+	result := findIn(float64(x), v)
+	if !mat.Equal(result, expectedVec) {
+		t.Errorf("Expected \n%v, found \n%v",
+			printMatrix(expectedVec), printMatrix(result))
+	}
+}

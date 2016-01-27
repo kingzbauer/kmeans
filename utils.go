@@ -66,3 +66,15 @@ func getRowVector(index int, M mat.Matrix) *mat.Vector {
 func printMatrix(M mat.Matrix) fmt.Formatter {
 	return mat.Formatted(M, mat.Prefix(""))
 }
+
+func findIn(scalar float64, vec *mat.Vector) *mat.Vector {
+	var result []float64
+
+	for i := 0; i < vec.Len(); i++ {
+		if scalar == vec.At(i, 0) {
+			result = append(result, float64(i))
+		}
+	}
+
+	return mat.NewVector(len(result), result)
+}
