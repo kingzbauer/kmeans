@@ -34,7 +34,7 @@ func NewApp(X mat.Matrix, randInitializations, K, InnerIters int) *KmeansApp {
 }
 
 // Recontructs the original X matrix with the new cluster centroid values
-func (appIter *AppIter) RecostructXMatrix() mat.Matrix {
+func (appIter *AppIter) ReconstructXMatrix() mat.Matrix {
 	return ConstructXCentroidMatrix(appIter.idx, appIter.mu)
 }
 
