@@ -78,3 +78,15 @@ func MoveCentroids(idx *mat.Vector, X, Mu mat.Matrix) mat.Matrix {
 
 	return NewMu
 }
+
+func J(idx *mat.Vector, X, Mu mat.Matrix) float64 {
+	Mux := constructXCentroidMatrix(idx, Mu)
+	xRows, xCols := X.Dims()
+
+	Diff := mat.NewDense(xRows, xCols, nil)
+	Diff.Sub(X, Mux)
+	Diff.MulElem(Diff, Diff)
+	Diff = rowSum(Diff).(*mat.Dense)
+
+	return columnSum(Diff).At(0, 0) / float64(xRows)
+}

@@ -179,3 +179,27 @@ func TestRowSum(t *testing.T) {
 		t.Errorf("Expected \n%v, got\n%v", printMatrix(ExpectedM), printMatrix(ResultM))
 	}
 }
+
+func TestConstructXCentroidMatrix(t *testing.T) {
+	Mu := mat.NewDense(2, 3, []float64{
+		4, 9, 2,
+		3, 1, 4,
+	})
+	idx := mat.NewVector(4, []float64{
+		0,
+		1,
+		0,
+		1,
+	})
+	ExpectedMu := mat.NewDense(4, 3, []float64{
+		4, 9, 2,
+		3, 1, 4,
+		4, 9, 2,
+		3, 1, 4,
+	})
+
+	ResultMu := constructXCentroidMatrix(idx, Mu)
+	if !mat.Equal(ResultMu, ExpectedMu) {
+		t.Errorf("Expected \n%v, got\n%v", printMatrix(ExpectedMu), printMatrix(ResultMu))
+	}
+}

@@ -69,3 +69,28 @@ func TestMoveCentroids(t *testing.T) {
 			printMatrix(ExpectedMu), printMatrix(ResultMu))
 	}
 }
+
+func TestJ(t *testing.T) {
+	X := mat.NewDense(4, 3, []float64{
+		6, 4, 1,
+		2, 3, 4,
+		9, 1, 6,
+		6, 2, 2,
+	})
+	Mu := mat.NewDense(2, 3, []float64{
+		4, 9, 2,
+		3, 1, 4,
+	})
+	idx := mat.NewVector(4, []float64{
+		0,
+		1,
+		0,
+		1,
+	})
+	expectedCost := 38.5
+
+	cost := J(idx, X, Mu)
+	if cost != expectedCost {
+		t.Errorf("Expected the cost to be %.5f, got %.5f", expectedCost, cost)
+	}
+}
