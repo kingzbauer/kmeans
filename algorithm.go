@@ -2,6 +2,7 @@ package kmeans
 
 import (
 	mat "github.com/gonum/matrix/mat64"
+	"runtime"
 )
 
 // AppIter holds the result of making one run through the whole algorithm as defined by
@@ -140,4 +141,32 @@ func (app *KmeansApp) Run() {
 	}
 
 	app.BestIter = bestIteration
+}
+
+func (app *KmeansApp) ParallelRun() {
+	if app.K == 0 {
+		// K was not specified
+		return
+	}
+
+	// initial settings for number of cpus available
+	cpuCount := runtime.NumCPU()
+	runtime.GOMAXPROCS(cpuCount)
+
+	// start the workers
+	for i := 0; i < cpuCount; i++ {
+		go worker()
+	}
+	go collectorWorker(app)
+
+	// dispatch work
+	for i := 0; i < app.RandInitializations; i++ {
+		iter := &AppIter{App: app}
+		workChannel <- iter
+	}
+
+	// wait for the workers to finish
+	<-doneChannel
+	// cleanup
+	closeChannels()
 }
